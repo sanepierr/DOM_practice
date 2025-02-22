@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport-width", content="width=device-width, initial_scale=1.0">
+        <title>
+            Dynamic Application
+        </title>
+        <style>
+            body{
+                background-color: aquamarine;
+            }
+        </style>
+    </head>
+    <body onload="greet()">
+        <button onclick="alert('Hello, world')">CLICK</button>
+        <p id="text">This is the first HTML, CSS and JavaScript.</p>
+        <button id="change">Change paragraph</button>
+        <button id="click">Internal JavaScript Click</button>
+
+
+        <form id="colorForm">
+            <input type="text" id="colorInput" name="colorInput" placeholder="Enter background color like red, #FF0000, rgb(255,0,0)">
+            <button type="submit">Change Background Color</button>
+        </form>
+
+
+    <script>
+        function greet(){
+            alert("Welcome to the dynamic world");
+            document.getElementById('click').onclick = function(){
+                alert("Button was clicked.");
+            }
+            const buttonId = document.getElementById('click');
+            
+            buttonId.onclick = function(){
+                alert("Button was clicked");
+            }
+            buttonId.onmouseover = function(){
+                document.getElementById('click').style.color = 'yellow';
+            }
+            const change_button = document.getElementById('change');
+            
+            change_button.onclick = function(){
+                if (document.getElementById('text').innerHTML == "This is the first HTML, CSS and JavaScript."){
+                    document.getElementById('text').innerHTML = "This is a changed paragraph.";
+                }
+                else{
+                    document.getElementById('text').innerHTML = "This is the first HTML, CSS and JavaScript.";
+                }
+            }
+        }
+        
+
+
+        document.getElementById('colorForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const color = document.getElementById('colorInput').value;
+
+        document.body.style.backgroundColor = color;
+        });
+
+
+        
+    </script>
+    </body>
+</html>
