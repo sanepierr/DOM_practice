@@ -2,13 +2,15 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport-width", content="width=device-width, initial_scale=1.0">
-        <title>
-            Dynamic Application
-        </title>
+        <meta name="viewport-width" content="width=device-width, initial-scale=1.0">
+        <title>Dynamic Application</title>
         <style>
-            body{
+            body {
                 background-color: aquamarine;
+                transition: background-color 0.5s ease;
+            }
+            #colorPicker {
+                margin-top: 10px;
             }
         </style>
     </head>
@@ -19,50 +21,68 @@
         <button id="click">Internal JavaScript Click</button>
 
 
-        <form id="colorForm">
-            <input type="text" id="colorInput" name="colorInput" placeholder="Enter background color like red, #FF0000, rgb(255,0,0)">
-            <button type="submit">Change Background Color</button>
-        </form>
+        <div>
+            <input type="color" id="colorPicker" value="#ffffff">
+            <button id="changeBackground">Change Background Color</button>
+        </div>
+
+        <script>
+            function greet() {
+                alert("Welcome to the dynamic world");
+
+                document.getElementById('click').onclick = function () {
+                    alert("Button was clicked.");
+                };
+
+                const changeButton = document.getElementById('change');
+                changeButton.onclick = function () {
+                    const textElement = document.getElementById('text');
+                    if (textElement.innerHTML === "This is the first HTML, CSS and JavaScript fusion.") {
+                        textElement.innerHTML = "This is a changed paragraph.";
+                    } else {
+                        textElement.innerHTML = "This is the first HTML, CSS and JavaScript fusion.";
+                    }
+                };
 
 
-    <script>
-        function greet(){
-            alert("Welcome to the dynamic world");
-            document.getElementById('click').onclick = function(){
-                alert("Button was clicked.");
+                const changeBackgroundButton = document.getElementById('changeBackground');
+                const colorPicker = document.getElementById('colorPicker');
+                let isDefaultColor = true;
+
+                changeBackgroundButton.onclick = function () {
+                    const selectedColor = colorPicker.value;
+
+                    if (!selectedColor) {
+                        alert("Please select a valid color.");
+                        return;
+                    }
+
+                    if (isDefaultColor) {
+                        document.body.style.backgroundColor = selectedColor;
+                        changeBackgroundButton.textContent = "Revert to Default";
+                    } else {
+                        document.body.style.backgroundColor = "aquamarine";
+                        changeBackgroundButton.textContent = "Change Background Color";
+                    }
+                    isDefaultColor = !isDefaultColor;
+                };
             }
-            const buttonId = document.getElementById('click');
-            
-            buttonId.onclick = function(){
-                alert("Button was clicked");
-            }
-            buttonId.onmouseover = function(){
-                document.getElementById('click').style.color = 'yellow';
-            }
-            const change_button = document.getElementById('change');
-            
-            change_button.onclick = function(){
-                if (document.getElementById('text').innerHTML == "This is the first HTML, CSS and JavaScript fusion."){
-                    document.getElementById('text').innerHTML = "This is a changed paragraph.";
+            document.getElementById('colorForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const color = document.getElementById('colorInput').value;
+
+
+                if (!color) {
+                    alert("Please enter a valid color.");
+                    return;
                 }
-                else{
-                    document.getElementById('text').innerHTML = "This is the first HTML, CSS and JavaScript fusion.";
+
+                try {
+                    document.body.style.backgroundColor = color;
+                } catch (error) {
+                    alert("Invalid color entered. Please try again.");
                 }
-            }
-        }
-        
-
-
-        document.getElementById('colorForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const color = document.getElementById('colorInput').value;
-
-        document.body.style.backgroundColor = color;
-        });
-
-
-        
-    </script>
+            });
+        </script>
     </body>
 </html>
